@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6efe0">
+<title>见字如面 · 写给妈妈的长信</title>
+<style>
+  :root {
+    --paper: #f6efe0;
+    --paper-2: #f1e6d2;
+    --ink: #2b2622;
+    --ink-2: #4d443b;
+    --seal: #b23a2e;
+    --seal-2: #8e2b22;
+    --line: rgba(178, 58, 46, .16);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "KaiTi", "STKaiti", "楷体", "Kaiti SC", "Songti SC", serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* 宣纸纤维质感 */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    opacity: .55; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  #petals { position: fixed; inset: 0; z-index: 40; pointer-events: none; }
+
+  /* ============ 封面 ============ */
+  #cover {
+    position: relative; z-index: 2;
+    height: 100vh; min-height: 620px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .mountains {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 46vh; pointer-events: none;
+  }
+  .crane { position: absolute; opacity: .75; }
+  .c1 { top: 16%; left: -10vw; width: 150px; animation: fly1 26s linear infinite; }
+  .c2 { top: 26%; left: -14vw; width: 96px; animation: fly2 34s linear infinite 6s; opacity: .55; }
+  .c3 { top: 10%; left: -8vw; width: 70px; animation: fly3 22s linear infinite 13s; opacity: .4; }
+  @keyframes fly1 {
+    0% { transform: translate(0, 0) scaleX(1); }
+    50% { transform: translate(60vw, -3vh) scaleX(1); }
+    100% { transform: translate(125vw, 2vh) scaleX(1); }
+  }
+  @keyframes fly2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(135vw, -4vh); }
+  }
+  @keyframes fly3 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(130vw, 5vh); }
+  }
+
+  .coverInner { position: relative; z-index: 3; text-align: center; padding: 0 24px; }
+  .coverSmall {
+    font-size: clamp(12px, 1.6vw, 15px); letter-spacing: .55em;
+    color: var(--ink-2); opacity: .8; margin-bottom: 22px;
+    text-indent: .55em;
+  }
+  .coverTitle {
+    font-family: "STXingkai", "华文行楷", "KaiTi", "STKaiti", serif;
+    font-size: clamp(74px, 13vw, 168px);
+    line-height: 1.08; letter-spacing: .12em; text-indent: .12em;
+    color: #211d1a;
+    text-shadow: 0 2px 0 rgba(255,255,255,.35), 0 18px 40px rgba(90,60,40,.12);
+  }
+  .coverLine {
+    width: 1px; height: 54px; margin: 26px auto 0;
+    background: linear-gradient(180deg, transparent, var(--seal), transparent);
+    opacity: .7;
+  }
+  .coverSub {
+    margin-top: 20px; font-size: clamp(15px, 2.1vw, 19px);
+    letter-spacing: .4em; text-indent: .4em; color: var(--ink-2);
+  }
+  #openBtn {
+    margin-top: 44px;
+    width: 116px; height: 116px; border-radius: 50%;
+    border: 2px solid var(--seal);
+    background: radial-gradient(circle at 34% 28%, #c9503f, var(--seal) 55%, var(--seal-2));
+    color: #fbefd9;
+    font-family: "KaiTi", "STKaiti", "楷体", serif;
+    font-size: 30px; letter-spacing: .18em; text-indent: .18em;
+    cursor: pointer; position: relative;
+    box-shadow: 0 14px 34px rgba(140, 40, 30, .38), inset 0 0 0 5px rgba(251,239,217,.18);
+    transition: transform .25s ease, box-shadow .25s ease;
+    animation: sealBreath 3s ease-in-out infinite;
+  }
+  #openBtn::after {
+    content: ""; position: absolute; inset: 8px; border-radius: 50%;
+    border: 1px solid rgba(251, 239, 217, .5); pointer-events: none;
+  }
+  #openBtn:hover { transform: scale(1.06); box-shadow: 0 18px 44px rgba(140,40,30,.5); }
+  #openBtn:active { transform: scale(.96); }
+  @keyframes sealBreath {
+    0%, 100% { box-shadow: 0 14px 34px rgba(140,40,30,.38), inset 0 0 0 5px rgba(251,239,217,.18); }
+    50% { box-shadow: 0 18px 46px rgba(140,40,30,.55), inset 0 0 0 5px rgba(251,239,217,.28); }
+  }
+  .coverHint {
+    margin-top: 26px; font-size: 13px; letter-spacing: .2em;
+    color: var(--ink-2); opacity: .62;
+  }
+
+  /* ============ 长卷 ============ */
+  #stage { position: relative; z-index: 2; height: 380vh; }
+  .sticky {
+    position: sticky; top: 0; height: 100vh;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  #strip {
+    position: absolute; top: 50%; left: 0;
+    display: flex; align-items: center;
+    transform: translate3d(0, -50%, 0);
+    will-change: transform;
+  }
+  .roller {
+    width: 32px; height: 74vh; border-radius: 16px;
+    background: linear-gradient(90deg, #3d2a1f 0%, #6f4c34 38%, #583a27 62%, #34241a 100%);
+    box-shadow: 0 16px 40px rgba(60,40,25,.35), inset 0 0 12px rgba(0,0,0,.45);
+    position: relative; flex: 0 0 auto;
+  }
+  .roller::before, .roller::after {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 28%, #a9855f, #3b281b);
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+  }
+  .roller::before { top: -13px; }
+  .roller::after { bottom: -13px; }
+
+  .paper {
+    position: relative; flex: 0 0 auto;
+    height: 68vh; min-height: 420px;
+    padding: 20px 30px;
+    background: linear-gradient(180deg, #f9f2e2 0%, #f6ecd8 45%, #f2e6cf 100%);
+    border-top: 2px solid #d9c6a4;
+    border-bottom: 2px solid #d9c6a4;
+    box-shadow: 0 22px 60px rgba(90,60,40,.2), inset 0 0 70px rgba(190,160,110,.14);
+    display: flex;
+  }
+  .paper::before {
+    content: ""; position: absolute; inset: 9px;
+    border: 1px solid rgba(178,58,46,.34); pointer-events: none;
+  }
+  .cols { display: flex; flex-direction: row-reverse; height: 100%; }
+  .col {
+    writing-mode: vertical-rl; text-orientation: upright;
+    height: 100%; padding: 0 18px;
+    font-size: clamp(16px, 1.5vw, 20px);
+    line-height: 2; letter-spacing: 2.5px;
+    color: #2c2723;
+    border-right: 1px solid rgba(178,58,46,.13);
+    flex: 0 0 auto;
+  }
+  .col.gap { padding: 0 34px; border-right-color: transparent; }
+  .col.title {
+    font-family: "STXingkai", "华文行楷", "KaiTi", serif;
+    font-size: clamp(24px, 2.4vw, 32px);
+    letter-spacing: 14px; padding: 0 26px;
+    color: #1d1916;
+  }
+  .col.inkCol { padding: 0; border-right: none; width: min(46vw, 420px); writing-mode: horizontal-tb; }
+  .col.inkCol svg { width: 100%; height: 100%; display: block; }
+  .sealBox {
+    writing-mode: horizontal-tb;
+    display: grid; grid-template-columns: 1fr 1fr;
+    width: 58px; height: 58px; margin-top: 6px;
+    background: var(--seal); color: #f7ecd6;
+    font-size: 16px; line-height: 1.1;
+    place-items: center; border-radius: 5px;
+    transform: rotate(-2.5deg);
+    box-shadow: 0 6px 14px rgba(150,50,35,.28), inset 0 0 0 2px rgba(247,236,214,.25);
+  }
+
+  .stageUI { position: absolute; inset: 0; pointer-events: none; }
+  .progress {
+    position: absolute; left: 8%; right: 8%; bottom: 34px;
+    height: 1px; background: rgba(178,58,46,.16);
+  }
+  .progress i {
+    display: block; height: 100%; width: 0;
+    background: var(--seal); opacity: .75;
+  }
+  .scrollHint {
+    position: absolute; left: 50%; bottom: 52px; transform: translateX(-50%);
+    font-size: 13px; letter-spacing: .3em; text-indent: .3em;
+    color: var(--ink-2); opacity: .6;
+    animation: hintPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes hintPulse { 0%,100% { opacity: .35; } 50% { opacity: .85; } }
+  .skip {
+    position: absolute; right: 24px; bottom: 30px;
+    font-size: 13px; letter-spacing: .1em; color: var(--seal);
+    text-decoration: none; pointer-events: auto;
+    border-bottom: 1px solid rgba(178,58,46,.35); padding-bottom: 2px;
+    opacity: .85;
+  }
+  .skip:hover { opacity: 1; }
+
+  /* ============ 结尾 ============ */
+  #ending {
+    position: relative; z-index: 2;
+    min-height: 100vh; padding: 90px 22px 70px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f6efe0 0%, #f3e9d6 55%, #efe2ca 100%);
+  }
+  .endMountains {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 38vh; opacity: .8; pointer-events: none;
+  }
+  .endInner { position: relative; z-index: 3; text-align: center; }
+  .brush {
+    font-family: "STXingkai", "华文行楷", "KaiTi", serif;
+    font-size: clamp(64px, 11vw, 132px);
+    letter-spacing: .1em; text-indent: .1em; line-height: 1.1;
+    color: #221e1a;
+    text-shadow: 0 2px 0 rgba(255,255,255,.3);
+  }
+  .endSub {
+    margin-top: 18px;
+    font-size: clamp(15px, 2vw, 20px); letter-spacing: .42em; text-indent: .42em;
+    color: var(--ink-2);
+  }
+  .endPoem {
+    margin-top: 12px; font-size: clamp(13px, 1.7vw, 16px);
+    letter-spacing: .24em; color: var(--ink-2); opacity: .72;
+  }
+  .stampArea { margin-top: 54px; display: flex; flex-direction: column; align-items: center; }
+  .bigSeal {
+    width: 122px; height: 122px;
+    display: grid; grid-template-columns: 1fr 1fr; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #c9503f, var(--seal) 58%, var(--seal-2));
+    color: #f9efdb; font-size: 30px; line-height: 1.1;
+    border-radius: 9px; cursor: pointer;
+    box-shadow: 0 16px 36px rgba(140,40,30,.34), inset 0 0 0 3px rgba(249,239,219,.2);
+    transform: rotate(-3deg);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .bigSeal:hover { transform: rotate(-3deg) scale(1.05); box-shadow: 0 20px 46px rgba(140,40,30,.45); }
+  .bigSeal.stamped { animation: stampIn .55s cubic-bezier(.2,.9,.3,1.4); }
+  @keyframes stampIn {
+    0% { transform: scale(2) rotate(-16deg); opacity: 0; }
+    55% { transform: scale(.9) rotate(-3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(-3deg); }
+  }
+  .stampHint { margin-top: 18px; font-size: 14px; letter-spacing: .18em; color: var(--ink-2); opacity: .72; }
+  .foot {
+    margin-top: 64px; font-size: 14px; letter-spacing: .3em; color: var(--ink-2); opacity: .7;
+  }
+
+  /* ============ 音乐按钮 ============ */
+  #musicBtn {
+    position: fixed; top: 18px; right: 18px; z-index: 90;
+    width: 50px; height: 50px; border-radius: 50%;
+    border: 1.5px solid var(--seal); cursor: pointer;
+    background: rgba(246, 239, 224, .85);
+    color: var(--seal); font-family: "KaiTi", serif; font-size: 17px;
+    box-shadow: 0 6px 18px rgba(140,40,30,.18);
+    display: none;
+  }
+  #musicBtn.on { display: block; }
+</style>
+</head>
+<body>
+  <canvas id="petals"></canvas>
+
+  <!-- ================= 封面 ================= -->
+  <section id="cover">
+    <svg class="mountains" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,330 L120,220 L230,300 L340,190 L470,300 L600,210 L720,300 L840,200 L960,290 L1080,215 L1200,320 L1200,420 L0,420 Z" fill="rgba(43,38,34,.10)"/>
+      <path d="M0,370 L150,275 L280,340 L420,255 L560,345 L700,270 L840,350 L980,275 L1120,355 L1200,300 L1200,420 L0,420 Z" fill="rgba(43,38,34,.16)"/>
+      <path d="M0,405 L180,340 L330,390 L500,320 L660,395 L820,335 L980,400 L1200,345 L1200,420 L0,420 Z" fill="rgba(43,38,34,.22)"/>
+    </svg>
+
+    <svg class="crane c1" viewBox="0 0 140 46" aria-hidden="true">
+      <path d="M8,30 C30,10 52,10 74,26 C86,16 100,16 116,28 C98,34 84,36 74,33 C52,39 30,38 8,30 Z" fill="#2b2622"/>
+      <path d="M116,28 L136,22 L126,34 Z" fill="#2b2622"/>
+    </svg>
+    <svg class="crane c2" viewBox="0 0 140 46" aria-hidden="true">
+      <path d="M8,30 C30,10 52,10 74,26 C86,16 100,16 116,28 C98,34 84,36 74,33 C52,39 30,38 8,30 Z" fill="#2b2622"/>
+      <path d="M116,28 L136,22 L126,34 Z" fill="#2b2622"/>
+    </svg>
+    <svg class="crane c3" viewBox="0 0 140 46" aria-hidden="true">
+      <path d="M8,30 C30,10 52,10 74,26 C86,16 100,16 116,28 C98,34 84,36 74,33 C52,39 30,38 8,30 Z" fill="#2b2622"/>
+      <path d="M116,28 L136,22 L126,34 Z" fill="#2b2622"/>
+    </svg>
+
+    <div class="coverInner">
+      <p class="coverSmall">今 岁 生 辰</p>
+      <h1 class="coverTitle">见字如面</h1>
+      <div class="coverLine"></div>
+      <p class="coverSub">一封写给妈妈的长信</p>
+      <button id="openBtn">展 信</button>
+      <p class="coverHint">展信之后，轻轻向下滚动，长卷会缓缓展开</p>
+    </div>
+  </section>
+
+  <!-- ================= 长卷 ================= -->
+  <section id="stage">
+    <div class="sticky">
+      <div id="strip">
+        <div class="roller"></div>
+        <div class="paper">
+          <div class="cols">
+            <div class="col title">见字如面</div>
+            <div class="col">妈：</div>
+            <div class="col gap">祝我最亲爱的</div>
+            <div class="col">老妈生日快乐，</div>
+            <div class="col">永远十八岁！</div>
+            <div class="col gap">谢谢您一直以来</div>
+            <div class="col">对我无限的耐心，</div>
+            <div class="col">给我鼓励和支持；</div>
+            <div class="col">我有什么不满，</div>
+            <div class="col">您也总是第一时间</div>
+            <div class="col">为我改变。</div>
+            <div class="col gap">祝您开心快乐</div>
+            <div class="col">每一天，</div>
+            <div class="col">工作顺利，</div>
+            <div class="col">发大财！</div>
+            <div class="col">—— 女儿</div>
+
+            <div class="col inkCol">
+              <svg viewBox="0 0 400 340" aria-hidden="true">
+                <circle cx="308" cy="64" r="30" fill="rgba(178,58,46,.16)"/>
+                <path d="M0,318 L70,232 L130,278 L196,200 L258,268 L318,214 L400,286 L400,340 L0,340 Z" fill="rgba(43,38,34,.13)"/>
+                <path d="M0,334 L86,272 L158,312 L232,252 L308,310 L400,268 L400,340 L0,340 Z" fill="rgba(43,38,34,.2)"/>
+                <path d="M28,120 C58,96 92,92 124,104" stroke="#2b2622" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/>
+                <path d="M124,104 C150,110 168,132 162,158" stroke="#2b2622" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+                <circle cx="70" cy="100" r="4" fill="rgba(178,58,46,.6)"/>
+                <circle cx="96" cy="90" r="3.2" fill="rgba(178,58,46,.5)"/>
+                <circle cx="140" cy="112" r="4.6" fill="rgba(178,58,46,.55)"/>
+                <circle cx="154" cy="130" r="3" fill="rgba(178,58,46,.45)"/>
+                <circle cx="162" cy="152" r="4" fill="rgba(178,58,46,.5)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="roller"></div>
+      </div>
+
+      <div class="stageUI">
+        <div class="progress"><i id="bar"></i></div>
+        <p class="scrollHint">向 下 滚 动 · 长 卷 缓 缓 展 开</p>
+        <a class="skip" href="#ending">直接看结尾 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 结尾 ================= -->
+  <section id="ending">
+    <svg class="endMountains" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,250 L160,160 L300,230 L440,150 L580,240 L720,165 L860,245 L1000,170 L1200,250 L1200,320 L0,320 Z" fill="rgba(43,38,34,.09)"/>
+      <path d="M0,288 L200,215 L360,278 L520,205 L680,282 L840,215 L1000,285 L1200,230 L1200,320 L0,320 Z" fill="rgba(43,38,34,.14)"/>
+    </svg>
+    <div class="endInner">
+      <h2 class="brush">生日快乐</h2>
+      <p class="endSub">开心快乐每一天 · 工作顺利发大财</p>
+      <p class="endPoem">永远十八岁的妈妈</p>
+      <div class="stampArea">
+        <div class="bigSeal" id="sealStamp"><span>生辰</span><span>吉乐</span></div>
+        <p class="stampHint" id="stampHint">轻轻点一下印章，替这封信盖个章</p>
+      </div>
+      <p class="foot">—— 永远爱您的女儿</p>
+    </div>
+  </section>
+
+  <button id="musicBtn">音</button>
+
+<script>
+(function () {
+  "use strict";
+
+  var D = window.devicePixelRatio ? Math.min(window.devicePixelRatio, 2) : 1;
+
+  /* ================= 花瓣 ================= */
+  var cv = document.getElementById("petals");
+  var cx = cv.getContext("2d");
+  var W = 0, H = 0;
+  function resizeCanvas() {
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * D; cv.height = H * D;
+    cx.setTransform(D, 0, 0, D, 0, 0);
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  var petals = [];
+  var PALETTE = ["rgba(200,96,86,.75)", "rgba(214,132,120,.7)", "rgba(186,74,64,.6)", "rgba(224,164,150,.65)"];
+  function spawnPetal() {
+    petals.push({
+      x: Math.random() * W,
+      y: -20,
+      r: 2.4 + Math.random() * 3.2,
+      vy: .35 + Math.random() * .55,
+      vx: -.25 + Math.random() * .5,
+      rot: Math.random() * 6.28,
+      vr: (-.5 + Math.random()) * .02,
+      sw: .6 + Math.random() * 1.2,
+      ph: Math.random() * 6.28,
+      c: PALETTE[(Math.random() * PALETTE.length) | 0]
+    });
+  }
+  for (var i = 0; i < 26; i++) {
+    spawnPetal();
+    petals[i].y = Math.random() * H;
+  }
+
+  var t0 = performance.now();
+  function petalLoop(now) {
+    requestAnimationFrame(petalLoop);
+    var t = (now - t0) / 1000;
+    cx.clearRect(0, 0, W, H);
+    for (var i = petals.length - 1; i >= 0; i--) {
+      var p = petals[i];
+      p.y += p.vy;
+      p.x += p.vx + Math.sin(t * .8 + p.ph) * .18;
+      p.rot += p.vr;
+      if (p.y > H + 24) { petals.splice(i, 1); continue; }
+      cx.save();
+      cx.translate(p.x, p.y);
+      cx.rotate(p.rot);
+      cx.fillStyle = p.c;
+      cx.beginPath();
+      cx.ellipse(0, 0, p.r * 1.5, p.r, 0, 0, 6.2832);
+      cx.fill();
+      cx.restore();
+    }
+    if (petals.length < 34 && Math.random() < .5) spawnPetal();
+  }
+  requestAnimationFrame(petalLoop);
+
+  /* ================= 音乐：Lo-Fi 氛围（FM 电钢琴 + 柔和鼓组 + 黑胶底噪） ================= */
+  var actx = null, master = null, muted = false, playing = false, timer = null;
+  var sr = 44100;
+  var BEAT = 0.75;                       /* 80 BPM，松弛的慢速 */
+  var F = {
+    D2: 73.42, A2: 110.00, B2: 123.47, G2: 98.00,
+    D3: 146.83, "F#3": 185.00, G3: 196.00, A3: 220.00, B3: 246.94,
+    "C#4": 277.18, D4: 293.66, E4: 329.63, "F#4": 369.99, A4: 440.00, B4: 493.88,
+    "C#5": 554.37, D5: 587.33, E5: 659.25, "F#5": 739.99
+  };
+  /* Dmaj9 - A6/9 - Bm7 - Gmaj7：当代流行常用的温暖七和弦走向 */
+  var CHORDS = [
+    { root: "D2", arp: ["D3", "F#3", "A3", "C#4", "E4", "A4"] },
+    { root: "A2", arp: ["A3", "C#4", "E4", "F#4", "B4", "E5"] },
+    { root: "B2", arp: ["B3", "D4", "F#4", "A4", "C#5", "F#5"] },
+    { root: "G2", arp: ["G3", "B3", "D4", "F#4", "A4", "D5"] }
+  ];
+
+  /* ---- 音色：FM 电钢琴 ---- */
+  function piano(freq, when, dur, vol) {
+    if (!actx) return;
+    var car = actx.createOscillator(), mod = actx.createOscillator();
+    var mg = actx.createGain(), g = actx.createGain();
+    car.type = "sine"; car.frequency.value = freq;
+    mod.type = "sine"; mod.frequency.value = freq * 2;
+    mg.gain.setValueAtTime(freq * 1.6, when);
+    mg.gain.exponentialRampToValueAtTime(freq * 0.12, when + Math.min(dur, 1.2));
+    mod.connect(mg); mg.connect(car.frequency);
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.linearRampToValueAtTime(vol, when + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    car.connect(g); g.connect(master);
+    car.start(when); mod.start(when);
+    car.stop(when + dur + .05); mod.stop(when + dur + .05);
+  }
+  function bassNote(freq, when, dur, vol) {
+    if (!actx) return;
+    var o = actx.createOscillator(), lp = actx.createBiquadFilter(), g = actx.createGain();
+    o.type = "triangle"; o.frequency.value = freq;
+    lp.type = "lowpass"; lp.frequency.value = 260; lp.Q.value = .7;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.linearRampToValueAtTime(vol, when + .025);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    o.connect(lp); lp.connect(g); g.connect(master);
+    o.start(when); o.stop(when + dur + .05);
+  }
+  function pad(tones, when, dur, vol) {
+    if (!actx) return;
+    var lp = actx.createBiquadFilter(), g = actx.createGain();
+    lp.type = "lowpass"; lp.frequency.value = 1100; lp.Q.value = .4;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.linearRampToValueAtTime(vol, when + dur * .45);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    for (var i = 0; i < tones.length; i++) {
+      for (var k = 0; k < 2; k++) {
+        var o = actx.createOscillator();
+        o.type = "sawtooth";
+        o.frequency.value = tones[i];
+        o.detune.value = k ? 8 : -8;
+        o.connect(lp);
+        o.start(when); o.stop(when + dur + .1);
+      }
+    }
+    lp.connect(g); g.connect(master);
+  }
+  function kick(when, vol) {
+    if (!actx) return;
+    var o = actx.createOscillator(), g = actx.createGain();
+    o.type = "sine";
+    o.frequency.setValueAtTime(140, when);
+    o.frequency.exponentialRampToValueAtTime(46, when + .14);
+    g.gain.setValueAtTime(vol, when);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + .26);
+    o.connect(g); g.connect(master);
+    o.start(when); o.stop(when + .3);
+  }
+  function noiseHit(when, dur, vol, highpass) {
+    if (!actx) return;
+    var len = Math.floor(actx.sampleRate * dur);
+    var buf = actx.createBuffer(1, len, actx.sampleRate);
+    var d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    var src = actx.createBufferSource(); src.buffer = buf;
+    var f = actx.createBiquadFilter();
+    f.type = highpass ? "highpass" : "bandpass";
+    f.frequency.value = highpass ? 7000 : 1900;
+    f.Q.value = highpass ? .7 : 1.2;
+    var g = actx.createGain();
+    g.gain.setValueAtTime(vol, when);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    src.connect(f); f.connect(g); g.connect(master);
+    src.start(when);
+  }
+
+  /* ---- 编曲：4 小节循环 ---- */
+  var ARP_IDX = [0, 1, 2, 3, 4, 3, 2, 1];
+  var MELODY = ["A4", "E5", "F#5", "D5"];
+  function scheduleLoop() {
+    if (!playing) return;
+    var t0 = actx.currentTime + .25;
+    var bars = CHORDS.length;
+    for (var b = 0; b < bars; b++) {
+      var ch = CHORDS[b];
+      var t = t0 + b * 4 * BEAT;
+      /* 铺底 */
+      pad([F[ch.arp[0]] * 2, F[ch.arp[1]] * 2, F[ch.arp[2]] * 2], t, 4 * BEAT, 0.045);
+      /* 低音 */
+      bassNote(F[ch.root], t, 1.7 * BEAT, 0.2);
+      bassNote(F[ch.root] * 1.5, t + 2 * BEAT, 1.5 * BEAT, 0.13);
+      /* 稀疏长音旋律 */
+      piano(F[MELODY[b]], t, 3.4 * BEAT, 0.085);
+      /* 电钢琴琶音 */
+      for (var i = 0; i < 8; i++) {
+        var tone = ch.arp[ARP_IDX[i] % ch.arp.length];
+        var oct = (i === 4 || i === 7) ? 2 : 1;
+        piano(F[tone] * oct, t + i * BEAT / 2 + (i % 2 ? .02 : 0), .85, i % 2 ? .07 : .09);
+      }
+      /* 鼓组：底鼓 1、3 拍，轻军鼓 2、4 拍，踩镲八分音符 */
+      kick(t, .2); kick(t + 2 * BEAT, .16);
+      noiseHit(t + BEAT, .16, .045, false);
+      noiseHit(t + 3 * BEAT, .16, .045, false);
+      for (var h = 0; h < 8; h++) {
+        noiseHit(t + h * BEAT / 2 + (h % 2 ? .05 : 0), .045, .02, true);
+      }
+    }
+    timer = setTimeout(scheduleLoop, bars * 4 * BEAT * 1000 + 1200);
+  }
+
+  /* 黑胶底噪 */
+  function startCrackle() {
+    var len = Math.floor(actx.sampleRate * 4);
+    var buf = actx.createBuffer(1, len, actx.sampleRate);
+    var d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * .004;
+    for (var p = 0; p < 240; p++) {
+      var idx = (Math.random() * len) | 0;
+      var amp = Math.random() * .05;
+      d[idx] += amp * (Math.random() > .5 ? 1 : -1);
+      if (idx + 1 < len) d[idx + 1] += amp * .5;
+    }
+    var src = actx.createBufferSource(); src.buffer = buf; src.loop = true;
+    var hp = actx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1400;
+    var g = actx.createGain(); g.gain.value = .3;
+    src.connect(hp); hp.connect(g); g.connect(master);
+    src.start();
+  }
+
+  function startAudio() {
+    if (actx) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    actx = new AC();
+    sr = actx.sampleRate;
+    if (actx.resume) actx.resume();
+    master = actx.createGain();
+    master.gain.value = 0.9;
+    master.connect(actx.destination);
+    playing = true;
+    startCrackle();
+    scheduleLoop();
+  }
+
+  function thud() {
+    if (!actx) return;
+    var t = actx.currentTime;
+    var o = actx.createOscillator(), g = actx.createGain();
+    o.type = "sine";
+    o.frequency.setValueAtTime(150, t);
+    o.frequency.exponentialRampToValueAtTime(52, t + .28);
+    g.gain.setValueAtTime(0.62, t);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + .38);
+    o.connect(g); g.connect(master);
+    o.start(t); o.stop(t + .42);
+    var nb = actx.createBuffer(1, Math.floor(sr * .09), sr);
+    var d = nb.getChannelData(0);
+    for (var i = 0; i < d.length; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 2.4);
+    }
+    var ns = actx.createBufferSource(); ns.buffer = nb;
+    var ng = actx.createGain(); ng.gain.value = 0.22;
+    ns.connect(ng); ng.connect(master); ns.start(t);
+  }
+
+  var musicBtn = document.getElementById("musicBtn");
+  musicBtn.addEventListener("click", function () {
+    if (!master) return;
+    muted = !muted;
+    master.gain.value = muted ? 0 : 0.9;
+    musicBtn.textContent = muted ? "静" : "音";
+  });
+
+  /* ================= 封面：展信 ================= */
+  var openBtn = document.getElementById("openBtn");
+  openBtn.addEventListener("click", function () {
+    startAudio();
+    musicBtn.classList.add("on");
+    document.getElementById("stage").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ================= 长卷滚动 ================= */
+  var stage = document.getElementById("stage");
+  var strip = document.getElementById("strip");
+  var bar = document.getElementById("bar");
+
+  function updateScroll() {
+    var rect = stage.getBoundingClientRect();
+    var total = stage.offsetHeight - window.innerHeight;
+    var passed = Math.min(Math.max(-rect.top, 0), total);
+    var p = total > 0 ? passed / total : 1;
+    var sw = strip.getBoundingClientRect().width;
+    var vw = window.innerWidth;
+    var start = vw - sw;
+    var x = start * (1 - p);
+    strip.style.transform = "translate3d(" + x + "px, -50%, 0)";
+    bar.style.width = (p * 100) + "%";
+  }
+  window.addEventListener("scroll", updateScroll, { passive: true });
+  window.addEventListener("resize", updateScroll);
+  window.addEventListener("load", function () { updateScroll(); setTimeout(updateScroll, 400); });
+  updateScroll();
+
+  /* ================= 结尾：盖章 ================= */
+  var stamp = document.getElementById("sealStamp");
+  var stampHint = document.getElementById("stampHint");
+  var stamped = false;
+  stamp.addEventListener("click", function () {
+    startAudio();
+    musicBtn.classList.add("on");
+    thud();
+    stamp.classList.remove("stamped");
+    void stamp.offsetWidth;
+    stamp.classList.add("stamped");
+    if (!stamped) {
+      stamped = true;
+      stampHint.textContent = "已盖章 · 生辰吉乐，喜乐常伴";
+      for (var i = 0; i < 40; i++) {
+        setTimeout(function () { spawnPetal(); }, i * 22);
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
